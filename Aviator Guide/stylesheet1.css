@@ -123,21 +123,23 @@ main {
 
 .homepage-hero h1 {
     color: #ffffff;
-    background: #08244d; /* navy title background */
+    background: none;
     display: inline-block;
-    padding: 18px 28px;
-    border-radius: 8px;
+    padding: 0;
+    border-radius: 0;
     margin-bottom: 24px;
-    box-shadow: 0 8px 30px rgba(8,36,77,0.25);
+    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
 }
 
 .homepage-hero h3 {
-    color: #ffffff; /* white text on navy backgrounds */
-    background: rgba(26,42,74,0.9);
+    color: #ffffff; /* white text on hero image */
+    background: none;
     display: inline-block;
-    padding: 12px 18px;
-    border-radius: 6px;
+    padding: 0;
+    border-radius: 0;
     margin-bottom: 28px;
+    text-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
+
     font-weight: 600;
 }
 
