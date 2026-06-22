@@ -6,15 +6,16 @@
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', 'Open Sans', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     line-height: 1.6;
     color: #333;
+    background: #ffffff;
 }
 
 /* Typography */
-h1 { font-size: 93px; font-weight: 800; line-height: 1.1; }
-h2 { font-size: 50px; font-weight: 700; line-height: 1.2; }
-h3 { font-size: 21px; font-weight: 600; line-height: 1.4; }
+h1 { font-size: 72px; font-weight: 800; line-height: 1.05; }
+h2 { font-size: 44px; font-weight: 800; line-height: 1.15; }
+h3 { font-size: 20px; font-weight: 700; line-height: 1.25; }
 h4 { font-size: 18px; font-weight: 600; line-height: 1.5; }
 p { font-size: 14px; line-height: 1.7; }
 
@@ -109,30 +110,61 @@ main {
 }
 
 .homepage-hero h1 {
-    color: white;
-    margin-bottom: 30px;
+    color: #ffffff;
+    background: #1a2a4a; /* navy title background */
+    display: inline-block;
+    padding: 18px 28px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 30px rgba(26,42,74,0.25);
 }
 
 .homepage-hero h3 {
-    color: #ffd700;
-    font-size: 23px;
-    font-weight: 400;
-    margin-bottom: 40px;
-    line-height: 1.6;
+    color: #ffffff; /* white text on navy backgrounds */
+    background: rgba(26,42,74,0.9);
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 6px;
+    margin-bottom: 28px;
+    font-weight: 600;
 }
 
 .intro-section {
-    background: white;
+    background: #ffffff;
     padding: 60px 40px;
     margin-bottom: 40px;
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.06);
+    border: 2px solid rgba(230,126,34,0.06); /* subtle orange outline */
 }
 
 .intro-section p {
     font-size: 16px;
     color: #444;
     margin-bottom: 20px;
+}
+
+/* Heading visual treatment across the site */
+h1, h2, h3 {
+    color: #ffffff; /* default white when on navy blocks */
+}
+
+h2 {
+    background: #1a2a4a;
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+    font-weight: 800;
+}
+
+h3 {
+    background: #1a2a4a;
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-weight: 700;
 }
 
 .featured-image {
@@ -150,6 +182,8 @@ main {
     text-align: center;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 10px 40px rgba(26,42,74,0.25);
+    outline: 3px solid rgba(230,126,34,0.12); /* orange outline accent */
 }
 
 .featured-image::before {
@@ -191,6 +225,8 @@ main {
 .btn-primary {
     background-color: #e67e22;
     color: white;
+    box-shadow: 0 6px 18px rgba(230,126,34,0.18);
+    border: 2px solid rgba(230,126,34,0.06);
 }
 
 .btn-primary:hover {
@@ -202,7 +238,7 @@ main {
 .btn-secondary {
     background-color: transparent;
     color: white;
-    border: 2px solid white;
+    border: 2px solid rgba(255,255,255,0.9);
 }
 
 .btn-secondary:hover {
