@@ -14,21 +14,32 @@ document.addEventListener('DOMContentLoaded', function() {
     contactForm.addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const fromEmail = contactForm.querySelector('[name="from_email"]');
-        const replyTo = contactForm.querySelector('[name="reply_to"]');
-        const toEmail = contactForm.querySelector('[name="to_email"]');
+        const fromName = contactForm.querySelector('[name="from_name"]')?.value || '';
+        const fromEmail = contactForm.querySelector('[name="from_email"]')?.value || '';
+        const subject = contactForm.querySelector('[name="subject"]')?.value || 'Contact Request';
+        const message = contactForm.querySelector('[name="message"]')?.value || '';
 
-        if (fromEmail && replyTo) {
-            replyTo.value = fromEmail.value;
-        }
+        const adminParams = {
+            from_name: fromName,
+            from_email: fromEmail,
+            subject: subject,
+            message: message,
+            reply_to: fromEmail,
+            to_email: 'dia250380@diaestudents.com'
+        };
 
-        if (fromEmail && toEmail) {
-            toEmail.value = fromEmail.value;
-        }
+        const autoReplyParams = {
+            from_name: fromName,
+            from_email: fromEmail,
+            subject: subject,
+            message: message,
+            reply_to: fromEmail,
+            to_email: fromEmail
+        };
 
-        emailjs.sendForm('service_y0bysqf', 'template_jzeh64c', contactForm)
+        emailjs.send('service_y0bysqf', 'template_jzeh64c', adminParams)
             .then(function() {
-                return emailjs.sendForm('service_y0bysqf', 'template_l5ozl76', contactForm);
+                return emailjs.send('service_y0bysqf', 'template_l5ozl76', autoReplyParams);
             })
             .then(function() {
                 alert('Your message has been sent successfully.');
