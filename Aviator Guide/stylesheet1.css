@@ -166,11 +166,12 @@ h1, h2, h3 {
 .homepage-hero h3,
 .section-label {
     color: #ffffff;
-    background: #08244d;
-    display: inline-block;
-    padding: 10px 16px;
-    border-radius: 6px;
+    background: none;
+    display: block;
+    padding: 0;
+    border-radius: 0;
     margin-bottom: 18px;
+    box-shadow: none;
 }
 
 .hero-heading h2,
