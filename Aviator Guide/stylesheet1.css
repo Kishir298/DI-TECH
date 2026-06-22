@@ -121,25 +121,22 @@ main {
     max-width: 1000px;
 }
 
-.homepage-hero h1 {
+.homepage-hero h1,
+.homepage-hero h3 {
     color: #ffffff;
-    background: none;
-    display: inline-block;
+    background: none !important;
+    display: block;
     padding: 0;
-    border-radius: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.homepage-hero h1 {
     margin-bottom: 24px;
-    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
 }
 
 .homepage-hero h3 {
-    color: #ffffff; /* white text on hero image */
-    background: none;
-    display: inline-block;
-    padding: 0;
-    border-radius: 0;
     margin-bottom: 28px;
-    text-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
-
     font-weight: 600;
 }
 
