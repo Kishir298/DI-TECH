@@ -37,9 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
             to_email: fromEmail
         };
 
-        emailjs.send('service_y0bysqf', 'template_jzeh64c', adminParams)
+        emailjs.send('service_ofv4nqp', 'template_jzeh64c', adminParams)
             .then(function() {
-                return emailjs.send('service_y0bysqf', 'template_l5ozl76', autoReplyParams);
+                return emailjs.send('service_ofv4nqp', 'template_l5ozl76', autoReplyParams);
             })
             .then(function() {
                 alert('Your message has been sent successfully.');
