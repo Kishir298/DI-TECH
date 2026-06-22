@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
             toEmail.value = fromEmail.value;
         }
 
-        emailjs.sendForm('service_ofv4nqp', 'template_jzeh64c', contactForm)
+        emailjs.sendForm('service_y0bysqf', 'template_jzeh64c', contactForm)
             .then(function() {
-                return emailjs.sendForm('service_ofv4nqp', 'template_l5ozl76', contactForm);
+                return emailjs.sendForm('service_y0bysqf', 'template_l5ozl76', contactForm);
             })
             .then(function() {
                 alert('Your message has been sent successfully.');
