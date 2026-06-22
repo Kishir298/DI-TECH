@@ -59,6 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
 const forms = document.querySelectorAll('form');
 forms.forEach(function(form) {
     form.addEventListener('submit', function(e) {
+        if (form.id === 'contact-form') {
+            return;
+        }
+
         if (this.getAttribute('action') === '' || this.getAttribute('action') === undefined) {
             e.preventDefault();
             alert('Thank you for your message! We will get back to you soon.');

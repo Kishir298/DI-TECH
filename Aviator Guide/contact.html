@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js" defer></script>
+    <script src="EmailJS.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -37,18 +39,20 @@
         <div class="grid-2-col">
             <div class="card">
                 <h3>Send us a Message</h3>
-                <form style="display: flex; flex-direction: column; gap: 15px;">
-                    <input type="text" placeholder="Your Name" style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Open Sans', sans-serif; font-size: 14px;">
-                    <input type="email" placeholder="Your Email" style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Open Sans', sans-serif; font-size: 14px;">
-                    <select style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Open Sans', sans-serif; font-size: 14px;">
+                <form id="contact-form" data-emailjs="true" style="display: flex; flex-direction: column; gap: 15px;">
+                    <input type="text" name="from_name" placeholder="Your Name" style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Open Sans', sans-serif; font-size: 14px;" required>
+                    <input type="email" name="from_email" placeholder="Your Email" style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Open Sans', sans-serif; font-size: 14px;" required>
+                    <select name="subject" style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Open Sans', sans-serif; font-size: 14px;" required>
                         <option value="">Subject: Training Information</option>
-                        <option value="colleges">Engineering Colleges</option>
-                        <option value="training">Pilot Training Centers</option>
-                        <option value="licenses">License Requirements</option>
-                        <option value="career">Career Advice</option>
-                        <option value="other">Other</option>
+                        <option value="Engineering Colleges">Engineering Colleges</option>
+                        <option value="Pilot Training Centers">Pilot Training Centers</option>
+                        <option value="License Requirements">License Requirements</option>
+                        <option value="Career Advice">Career Advice</option>
+                        <option value="Other">Other</option>
                     </select>
-                    <textarea placeholder="Your Message" rows="6" style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Open Sans', sans-serif; font-size: 14px; resize: vertical;"></textarea>
+                    <textarea name="message" placeholder="Your Message" rows="6" style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Open Sans', sans-serif; font-size: 14px; resize: vertical;" required></textarea>
+                    <input type="hidden" name="reply_to" value="">
+                    <input type="hidden" name="to_email" value="">
                     <button type="submit" class="btn btn-primary" style="width: fit-content;">Send Message</button>
                 </form>
             </div>
@@ -58,7 +62,7 @@
                 <div class="contact-info">
                     <div class="contact-item">
                         <h3>Email</h3>
-                        <p>info@aviator-guide-uae.org</p>
+                        <p>dia250380@diaestudents.com</p>
                         <p style="font-size: 13px; color: #666; margin-top: 5px;">For general inquiries and guidance</p>
                     </div>
                     <div class="contact-item">
