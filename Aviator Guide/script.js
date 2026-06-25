@@ -142,6 +142,88 @@ document.addEventListener('DOMContentLoaded', function() {
             link.classList.add('active');
         }
     });
+
+    function createChatbotWidget() {
+        const widget = document.createElement('div');
+        widget.className = 'chatbot-widget';
+        widget.innerHTML = `
+            <button class="chatbot-button" aria-label="Open chat">💬</button>
+            <div class="chatbot-modal" role="dialog" aria-modal="true" aria-label="Chatbot window">
+                <div class="chatbot-header">
+                    <h4>Site Chat</h4>
+                    <button class="chatbot-close" aria-label="Close chat">×</button>
+                </div>
+                <div class="chatbot-body">
+                    <div class="chatbot-message bot">Hello! Ask me about this Aviator Guide website and its content.</div>
+                </div>
+                <div class="chatbot-input-row">
+                    <input class="chatbot-input" type="text" placeholder="Ask a question..." aria-label="Type your question here">
+                    <button class="chatbot-send">Send</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(widget);
+
+        const button = widget.querySelector('.chatbot-button');
+        const modal = widget.querySelector('.chatbot-modal');
+        const close = widget.querySelector('.chatbot-close');
+        const send = widget.querySelector('.chatbot-send');
+        const input = widget.querySelector('.chatbot-input');
+        const body = widget.querySelector('.chatbot-body');
+
+        function appendMessage(text, sender) {
+            const message = document.createElement('div');
+            message.className = 'chatbot-message ' + sender;
+            message.textContent = text;
+            body.appendChild(message);
+            body.scrollTop = body.scrollHeight;
+        }
+
+        function getResponse(userText) {
+            const lower = userText.toLowerCase();
+            if (lower.includes('training center') || lower.includes('pilot training centers')) {
+                return 'The website lists UAE Aviation Academy (UAAA), Emirates Aviation University, CAE Oxford Aviation Academy - Dubai, Phoenix Aviation Academy, and Skyline University Aviation Academy as main training centers.';
+            }
+            if (lower.includes('license') || lower.includes('licenses')) {
+                return 'The site explains PPL, CPL, and ATPL licenses, including requirements and progression from private pilot to airline transport pilot.';
+            }
+            if (lower.includes('resources') || lower.includes('advice')) {
+                return 'The Resources and Advice page covers pilot experiences, study resources, salary overview, training timeline, and lifestyle tips for UAE aviation careers.';
+            }
+            if (lower.includes('contact')) {
+                return 'The Contact page encourages aspiring pilots to reach out for guidance on training programs, career advice, and next steps.';
+            }
+            return 'Ask me about the Aviator Guide website: training centers, licenses, engineering colleges, or resources and advice.';
+        }
+
+        function sendMessage() {
+            const text = input.value.trim();
+            if (!text) return;
+            appendMessage(text, 'user');
+            input.value = '';
+            setTimeout(function() {
+                appendMessage(getResponse(text), 'bot');
+            }, 300);
+        }
+
+        button.addEventListener('click', function() {
+            modal.classList.toggle('open');
+        });
+
+        close.addEventListener('click', function() {
+            modal.classList.remove('open');
+        });
+
+        send.addEventListener('click', sendMessage);
+        input.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+    }
+
+    createChatbotWidget();
 });
 
 const forms = document.querySelectorAll('form');
