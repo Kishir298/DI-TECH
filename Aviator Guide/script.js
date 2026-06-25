@@ -187,23 +187,68 @@ document.addEventListener('DOMContentLoaded', function() {
             if (contains(['training center', 'training centers', 'pilot training', 'flight school', 'pilot academy', 'aviation academy', 'pilot training center', 'training academy'])) {
                 return 'In the UAE, key pilot training centers include UAE Aviation Academy (UAAA), Emirates Aviation University, CAE Oxford Aviation Academy – Dubai, Phoenix Aviation Academy, and Skyline University Aviation Academy. These centers offer integrated ATPL, modular CPL/IR training, and airline cadet pathways.';
             }
-            if (contains(['license', 'licenses', 'ppl', 'cpl', 'atpl', 'pilot license', 'airline transport', 'type rating', 'medical requirement'])) {
-                return 'Pilot licenses progress from PPL to CPL and then ATPL. PPL is for private flying, CPL is required to fly commercially, and ATPL is needed to become an airline captain. You also need medical certification and a type rating for the specific aircraft you will fly.';
+            if (contains(['degree', 'university', 'aeronautical', 'aerospace engineering', 'aviation degree', 'engineering degree', 'university requirement', 'backup career', 'without degree', 'without university', 'no degree'])) {
+                if (contains(['without degree', 'without university', 'no degree'])) {
+                    return 'You do not need a degree to become a pilot. Many trained directly through integrated programs. However, a degree provides flexibility and higher earnings. If you stop flying, work in aviation management or engineering.';
+                }
+                return 'A degree is not required but helps career progression. Popular options: Aeronautical Engineering, Aviation Management, Aerospace. Emirates Aviation University integrates degrees with flight training. Degrees offer backup careers in management or engineering.';
             }
-            if (contains(['subject', 'subjects', 'required subjects', 'required subject', 'math', 'physics', 'science', 'english', 'biology'])) {
-                return 'The most important subjects are mathematics, physics, English, and science. Mathematics and physics help with navigation and aircraft performance, while English is required for international air traffic communication and ICAO proficiency.';
+            if (contains(['license', 'licenses', 'ppl', 'cpl', 'atpl', 'pilot license', 'airline transport', 'type rating', 'medical requirement', 'frozen atpl', 'instrument rating', 'multi engine', 'student pilot', 'medical certificate', 'class 1 medical', 'flight hour', 'training cost', 'how many hour', 'how long', 'how much cost', 'how difficult', 'fail', 'glasses', 'exam', 'start age'])) {
+                if (contains(['how many hour', 'how long', 'how much cost', 'how difficult', 'how much does'])) {
+                    return 'Integrated ATPL costs AED 400,000–650,000. CPL takes 6–12 months. ATPL requires 1500 hours (or 500–750 through integrated). Medical exams: AED 5,000–10,000. Start at 17 (PPL) or 18 (CPL). Training requires discipline but is achievable.';
+                }
+                if (contains(['fail', 'glasses', 'exam', 'start age'])) {
+                    return 'If you fail a test, you retake it—many do once. You can wear corrected glasses (20/20 vision). Medical includes cardiovascular, hearing, psychological checks. Start training at age 17.';
+                }
+                return 'Licenses: PPL (private), CPL (commercial), ATPL (airline). Get Instrument Rating, Multi-Engine Rating, Type Rating. Path: PPL → CPL → ATPL. ATPL frozen before 1500 hours. Class 1 Medical required. Total: 3–5 years.';
+            }
+            if (contains(['subject', 'subjects', 'required subjects', 'required subject', 'math', 'physics', 'science', 'english', 'biology', 'take', 'study', 'focus', 'year 13', 'ib subject', 'high school', 'qualification', 'without physics', 'without chemistry', 'struggle mathematics', 'grades', 'extracurricular'])) {
+                if (contains(['without physics', 'without chemistry', 'struggle mathematics'])) {
+                    return 'Physics and mathematics are critical, but if you struggle, extra tutoring helps. Many pilots worked harder in these subjects. Chemistry is less important. Persistence and support matter most.';
+                }
+                return 'Focus on mathematics, physics, English, and science. Math and physics are essential for navigation and aerodynamics. English is critical for ICAO communication. Geography helps with navigation. Good grades matter—airlines review records. Extracurricular aviation activities strengthen applications.';
             }
             if (contains(['become a pilot', 'to become a pilot', 'what to do to become', 'how to become', 'steps to become', 'becoming a pilot', 'what should i do', 'what do i need to do'])) {
                 return 'To become a pilot, start with the right academics: focus on mathematics, physics, English, and science. Then choose a training path such as an integrated ATPL program or modular CPL training, complete your PPL, CPL, and ATPL exams, obtain a Class 1 medical certificate, build flight hours, and secure a type rating for the aircraft you plan to fly.';
             }
-            if (contains(['resource', 'resources', 'advice', 'salary', 'timeline', 'lifestyle', 'pilot experiences', 'study materials', 'career advice', 'preparation', 'mental preparation', 'beginner', 'starting', 'advice', 'guidance'])) {
-                return 'For a beginner, focus on strong academics, build flight hours steadily, and use trusted study resources. Practice English, learn meteorology, attend simulators seriously, and network with pilots. Avoid rushing training and balance technical knowledge with Crew Resource Management and decision-making skills.';
+            if (contains(['resource', 'resources', 'advice', 'salary', 'timeline', 'lifestyle', 'pilot experiences', 'study materials', 'career advice', 'preparation', 'mental preparation', 'beginner', 'starting', 'guidance', 'suitable', 'good pilot', 'skill', 'mistake', 'competitive', 'next step', 'prepare', 'interview', 'worth', 'advantage', 'backup', 'step by step', 'improve chance', 'experience', 'suitable for', 'right for me', 'cannot afford', 'expensive', 'cannot pay', 'avoid', 'biggest', 'am i'])) {
+                if (contains(['suitable', 'suitable for', 'right for me', 'am i'])) {
+                    return 'You fit piloting if you enjoy problem-solving, stay calm under pressure, have spatial awareness, and want learning. Communication, discipline, teamwork matter. If you love math, physics, and flying—pursue it.';
+                }
+                if (contains(['step by step', 'plan', 'next step', 'what should', 'start', 'how to start'])) {
+                    return 'Step 1: Excel in school (maths, physics, English). Step 2: Get Class 1 Medical. Step 3: Choose academy (UAAA, Emirates Aviation, CAE). Step 4: Complete integrated ATPL (18–24 months). Step 5: Build hours. Step 6: Type rating. Step 7: Apply. Total: 3–5 years.';
+                }
+                if (contains(['cannot afford', 'expensive', 'cannot pay', 'afford'])) {
+                    return 'Explore cadet sponsorship from Emirates/Etihad—they cover costs for 5-year service. Check academy payment plans and scholarships. Work part-time or seek family support to save.';
+                }
+                if (contains(['mistake', 'avoid', 'biggest'])) {
+                    return 'Common mistakes: rushing, neglecting theory, weak English, poor CRM, isolation. Do not skip ATPL exams. Balance flying and theory. Practice English daily. Network. Take simulators seriously.';
+                }
+                return 'Key skills: discipline, problem-solving, communication, decision-making. For interviews: research airlines, practice ICAO English, show CRM understanding. Gain airport/aviation club experience. Piloting is competitive but rewarding.';
             }
-            if (contains(['good airline', 'top airline', 'best airline', 'airline career', 'airline recruitment', 'get into airline', 'airline application', 'emirates', 'etihad', 'flydubai', 'airline cadet'])) {
-                return 'To get into a good airline, focus on strong flight training, good academic records, and a professional CV. Build hours through a recognized training program, pass ICAO English and medical requirements, target cadet or sponsorship programs, and demonstrate strong CRM, professionalism, and airline culture fit.';
+            if (contains(['good airline', 'top airline', 'best airline', 'airline career', 'airline recruitment', 'get into airline', 'airline application', 'emirates', 'etihad', 'flydubai', 'airline cadet', 'airline', 'salary', 'earn', 'first officer', 'captain', 'career progression', 'career growth', 'demand', 'work schedule', 'benefit', 'challenge', 'how much', 'which airline', 'hire', 'future'])) {
+                if (contains(['salary', 'earn', 'payment', 'cost', 'how much'])) {
+                    return 'First officers start AED 28,000–42,000/month. Senior first officers: AED 48,000–65,000. Narrow-body captains: AED 85,000–120,000. Wide-body captains: AED 110,000–165,000+. Benefits: housing, education (AED 150,000/year), medical, 42–60 days leave, gratuity.';
+                }
+                if (contains(['which airline', 'best airline', 'hire', 'demand'])) {
+                    return 'Emirates, Etihad, flydubai hire regularly with cadet programs. High demand globally and in UAE. Career: First Officer (2–5 years) → Senior → Captain. Emirates/Etihad offer structured progression and competitive pay.';
+                }
+                if (contains(['get into airline', 'good airline', 'airline recruitment'])) {
+                    return 'Excel in flight training, maintain professional CV, pass ICAO English/medical, target cadet programs, demonstrate professionalism and CRM. Airlines value discipline, communication, and cultural fit.';
+                }
+                return 'Pilots earn well with stable careers and international opportunities. Irregular schedules and pressure are challenges. Benefits: high pay, education sponsorship, travel, prestige. Professionalism is essential.';
             }
             if (contains(['engineering college', 'aerospace engineering', 'university', 'college', 'aerospace college', 'aviation degree', 'mbzua', 'abu dhabi polytechnic'])) {
                 return 'Top UAE institutions include Emirates Aviation University, Khalifa University Aerospace Engineering, American University of Sharjah, Mohamed Bin Zayed University of Artificial Intelligence, and Abu Dhabi Polytechnic. They offer aerospace, aviation management, and AI-related programs that support aviation careers.';
+            }
+            if (contains(['flight school', 'academy', 'uae aviation', 'emirates aviation', 'cae oxford', 'phoenix aviation', 'skyline', 'uaaa', 'sharjah', 'training center', 'best academy', 'reputation', 'employment rate', 'scholarship', 'entry requirement', 'apply', 'facility', 'cost', 'fee', 'price', 'international students'])) {
+                if (contains(['best', 'reputation', 'highest', 'employment'])) {
+                    return 'UAE Aviation Academy (UAAA) and Emirates Aviation University have top reputations. CAE Oxford partners with airlines for employment. Scholarships and cadet sponsorship from Emirates/Etihad available.';
+                }
+                if (contains(['cost', 'fee', 'price', 'afford'])) {
+                    return 'Integrated ATPL costs AED 400,000–650,000 in UAE. Payment plans available. Cadet sponsorship from airlines reduces costs. Check Emirates Aviation and CAE Oxford for programs.';
+                }
+                return 'Top UAE schools: UAE Aviation Academy (Sharjah), Emirates Aviation University (Dubai), CAE Oxford (Al Maktoum), Phoenix Aviation (Ras Al Khaimah), Skyline University. Programs: 18–24 months. All have simulators, modern aircraft, international approvals.';
             }
             if (contains(['contact', 'get in touch', 'reach out', 'email', 'phone', 'office location', 'contact page', 'contact details'])) {
                 return 'You can contact the Aviator Guide team by email at rishik.patil78@gmail.com or by phone at +971 4 XXX XXXX. The office is located in Dubai Aviation Hub, Building B, Level 3, Dubai, UAE, and is open Sunday to Thursday from 9am to 6pm GST.';
