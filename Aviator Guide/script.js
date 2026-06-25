@@ -185,34 +185,34 @@ document.addEventListener('DOMContentLoaded', function() {
             const contains = keywords => keywords.some(keyword => normalized.includes(keyword));
 
             if (contains(['training center', 'training centers', 'pilot training', 'flight school', 'pilot academy', 'aviation academy', 'pilot training center', 'training academy'])) {
-                return 'The website lists UAE Aviation Academy (UAAA), Emirates Aviation University, CAE Oxford Aviation Academy - Dubai, Phoenix Aviation Academy, and Skyline University Aviation Academy as key pilot training centers. It also mentions aerospace colleges like Khalifa University and Abu Dhabi Polytechnic.';
+                return 'In the UAE, key pilot training centers include UAE Aviation Academy (UAAA), Emirates Aviation University, CAE Oxford Aviation Academy – Dubai, Phoenix Aviation Academy, and Skyline University Aviation Academy. These centers offer integrated ATPL, modular CPL/IR training, and airline cadet pathways.';
             }
             if (contains(['license', 'licenses', 'ppl', 'cpl', 'atpl', 'pilot license', 'airline transport', 'type rating', 'medical requirement'])) {
-                return 'The Aviator Guide explains pilot licenses: PPL for recreational flying, CPL for commercial flying, and ATPL for airline command. It also covers license progression, medical requirements, and type ratings.';
+                return 'Pilot licenses progress from PPL to CPL and then ATPL. PPL is for private flying, CPL is required to fly commercially, and ATPL is needed to become an airline captain. You also need medical certification and a type rating for the specific aircraft you will fly.';
             }
             if (contains(['subject', 'subjects', 'required subjects', 'required subject', 'math', 'physics', 'science', 'english', 'biology'])) {
-                return 'To become a pilot, the Aviator Guide recommends a strong foundation in subjects such as mathematics, physics, English, and science. These subjects support flight training, navigation, aircraft systems, and communication skills.';
+                return 'The most important subjects are mathematics, physics, English, and science. Mathematics and physics help with navigation and aircraft performance, while English is required for international air traffic communication and ICAO proficiency.';
             }
-            if (contains(['resource', 'resources', 'advice', 'salary', 'timeline', 'lifestyle', 'pilot experiences', 'study materials', 'career advice', 'preparation', 'mental preparation'])) {
-                return 'The Resources and Advice page covers pilot experience guidance, study resources, salary expectations in the UAE, training timelines, and lifestyle preparation for aviation careers.';
+            if (contains(['resource', 'resources', 'advice', 'salary', 'timeline', 'lifestyle', 'pilot experiences', 'study materials', 'career advice', 'preparation', 'mental preparation', 'beginner', 'starting', 'advice', 'guidance'])) {
+                return 'For a beginner, focus on strong academics, build flight hours steadily, and use trusted study resources. Practice English, learn meteorology, attend simulators seriously, and network with pilots. Avoid rushing training and balance technical knowledge with Crew Resource Management and decision-making skills.';
             }
             if (contains(['engineering college', 'aerospace engineering', 'university', 'college', 'aerospace college', 'aviation degree', 'mbzua', 'abu dhabi polytechnic'])) {
-                return 'The website covers UAE institutions including Emirates Aviation University, Khalifa University Aerospace Engineering, American University of Sharjah, Mohamed Bin Zayed University of Artificial Intelligence, and Abu Dhabi Polytechnic.';
+                return 'Top UAE institutions include Emirates Aviation University, Khalifa University Aerospace Engineering, American University of Sharjah, Mohamed Bin Zayed University of Artificial Intelligence, and Abu Dhabi Polytechnic. They offer aerospace, aviation management, and AI-related programs that support aviation careers.';
             }
-            if (contains(['contact', 'get in touch', 'reach out', 'email', 'phone', 'office location', 'contact page'])) {
-                return 'The Contact page provides email, phone, and office location details for aspiring pilots seeking help with training programs, career advice, and next steps.';
+            if (contains(['contact', 'get in touch', 'reach out', 'email', 'phone', 'office location', 'contact page', 'contact details'])) {
+                return 'You can contact the Aviator Guide team by email at rishik.patil78@gmail.com or by phone at +971 4 XXX XXXX. The office is located in Dubai Aviation Hub, Building B, Level 3, Dubai, UAE, and is open Sunday to Thursday from 9am to 6pm GST.';
             }
             if (contains(['website about', 'what is this website', 'what can i learn', 'guide website', 'about this website'])) {
-                return 'This Aviator Guide website helps aspiring pilots in the UAE by describing subjects, licenses, training centers, engineering colleges, and resources needed to start a pilot career.';
+                return 'This Aviator Guide website helps aspiring pilots in the UAE by explaining the subjects, licenses, training centers, colleges, and practical advice needed to start and grow a pilot career.';
             }
             if (contains(['hello', 'hi', 'hey', 'greetings'])) {
-                return 'Hello! Ask me anything about the Aviator Guide website: training centers, licenses, engineering colleges, resources, or contact information.';
+                return 'Hello! Ask me a direct question about pilot subjects, licenses, training centers, colleges, advice, or contact details for the Aviator Guide website.';
             }
             if (contains(['thanks', 'thank you', 'thankyou'])) {
-                return 'You’re welcome! Ask me another question about the Aviator Guide website or its aviation career guidance content.';
+                return 'You’re welcome! Ask me another question about pilot training, academic requirements, or UAE aviation career guidance.';
             }
             if (tokens.length > 0) {
-                return 'I’m here to answer questions about the Aviator Guide website. Try asking about training centers, licenses, engineering colleges, resources, or contact details.';
+                return 'Ask me a specific question about pilot training, required subjects, UAE aviation colleges, career advice, or contact details from the Aviator Guide.';
             }
             return 'Please type a question about the Aviator Guide website content.';
         }
