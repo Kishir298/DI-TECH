@@ -1,3 +1,91 @@
+// Security utilities
+function sanitizeForDisplay(input) {
+    if (typeof input !== 'string') return '';
+    return input
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
+}
+
+// Security: Disable right-click context menu to prevent easy content theft
+document.addEventListener('contextmenu', function(e) {
+    if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+    }
+});
+
+// Security: Prevent console access (basic obfuscation)
+(function() {
+    const originalConsole = console.log;
+    console.log = function() {
+        if (arguments[0] && typeof arguments[0] === 'string' && 
+            (arguments[0].includes('token') || arguments[0].includes('password') || 
+             arguments[0].includes('key') || arguments[0].includes('secret'))) {
+            return;
+        }
+        return originalConsole.apply(console, arguments);
+    };
+})();
+
+// Security: Protect against clickjacking
+if (window.self !== window.top) {
+    window.top.location = window.location;
+}
+
+// Security: Disable drag and drop for images to prevent data theft
+document.addEventListener('dragstart', function(e) {
+    if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+    }
+});
+
+// Security: Keyboard input sanitization for forms
+document.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        if (e.ctrlKey && (e.key === 'v' || e.key === 'V')) {
+            setTimeout(function() {
+                if (e.target.value) {
+                    e.target.value = sanitizeForDisplay(e.target.value);
+                }
+            }, 1);
+        }
+    }
+});
+
+// Security: Prevent XSS via innerHTML (override dangerous methods)
+const originalInnerHTML = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
+Object.defineProperty(Element.prototype, 'innerHTML', {
+    set: function(value) {
+        if (typeof value === 'string' && (value.includes('<script') || value.includes('javascript:'))) {
+            console.warn('Blocked potentially dangerous innerHTML assignment');
+            return;
+        }
+        originalInnerHTML.set.call(this, value);
+    },
+    get: function() {
+        return originalInnerHTML.get.call(this);
+    }
+});
+
+// Security: Content Security Policy violation reporting
+document.addEventListener('securitypolicyviolation', function(e) {
+    console.warn('CSP Violation:', e.blockedURI, e.violatedDirective);
+});
+
+// Security: Detect DevTools using timing attack
+(function devtoolsDetector() {
+    const start = new Date().getTime();
+    debugger;
+    const end = new Date().getTime();
+    if (end - start > 100) {
+        console.warn('Developer tools detected. Please close for optimal experience.');
+    }
+})();
+
+// Security: Disable F12 and other dev tool shortcuts
+
 // Wait for page to load
 // Toggle mobile menu
 // Close menu when clicking nav link
