@@ -193,8 +193,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (contains(['subject', 'subjects', 'required subjects', 'required subject', 'math', 'physics', 'science', 'english', 'biology'])) {
                 return 'The most important subjects are mathematics, physics, English, and science. Mathematics and physics help with navigation and aircraft performance, while English is required for international air traffic communication and ICAO proficiency.';
             }
+            if (contains(['become a pilot', 'to become a pilot', 'what to do to become', 'how to become', 'steps to become', 'becoming a pilot', 'what should i do', 'what do i need to do'])) {
+                return 'To become a pilot, start with the right academics: focus on mathematics, physics, English, and science. Then choose a training path such as an integrated ATPL program or modular CPL training, complete your PPL, CPL, and ATPL exams, obtain a Class 1 medical certificate, build flight hours, and secure a type rating for the aircraft you plan to fly.';
+            }
             if (contains(['resource', 'resources', 'advice', 'salary', 'timeline', 'lifestyle', 'pilot experiences', 'study materials', 'career advice', 'preparation', 'mental preparation', 'beginner', 'starting', 'advice', 'guidance'])) {
                 return 'For a beginner, focus on strong academics, build flight hours steadily, and use trusted study resources. Practice English, learn meteorology, attend simulators seriously, and network with pilots. Avoid rushing training and balance technical knowledge with Crew Resource Management and decision-making skills.';
+            }
+            if (contains(['good airline', 'top airline', 'best airline', 'airline career', 'airline recruitment', 'get into airline', 'airline application', 'emirates', 'etihad', 'flydubai', 'airline cadet'])) {
+                return 'To get into a good airline, focus on strong flight training, good academic records, and a professional CV. Build hours through a recognized training program, pass ICAO English and medical requirements, target cadet or sponsorship programs, and demonstrate strong CRM, professionalism, and airline culture fit.';
             }
             if (contains(['engineering college', 'aerospace engineering', 'university', 'college', 'aerospace college', 'aviation degree', 'mbzua', 'abu dhabi polytechnic'])) {
                 return 'Top UAE institutions include Emirates Aviation University, Khalifa University Aerospace Engineering, American University of Sharjah, Mohamed Bin Zayed University of Artificial Intelligence, and Abu Dhabi Polytechnic. They offer aerospace, aviation management, and AI-related programs that support aviation careers.';
