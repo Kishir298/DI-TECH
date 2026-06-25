@@ -1,32 +1,35 @@
 # Basic Python AI Agent
 
-Quick scaffold to send prompts to an AI API using an API key from environment variables.
+A minimal local AI agent that can respond to prompts without an API key.
 
 Usage
 
-- Set environment variables (example in `.env.example`).
-- Dry run (no network):
+- Local mode (no API key required):
+
+```bash
+python ai_agent/agent.py --prompt "Hello world"
+```
+
+- Dry run mode (no network):
 
 ```bash
 python ai_agent/agent.py --prompt "Hello world" --dry-run
 ```
 
-- Generic provider (POST JSON {"prompt":...} to `API_URL`):
+Optional remote providers
 
-```bash
-export API_KEY=your_key
-export API_URL=https://api.yourprovider/v1/generate
-python ai_agent/agent.py --prompt "Hello"
-```
-
-- OpenAI provider (requires `openai` package):
+- OpenAI provider (optional, requires `openai` package and `API_KEY`):
 
 ```bash
 export API_KEY=sk-...
-export PROVIDER=openai
-python ai_agent/agent.py --prompt "Hello"
+python ai_agent/agent.py --prompt "Hello" --provider openai
 ```
 
-Security
+- Generic HTTP provider (optional, requires `requests` and `API_KEY`):
 
-- Keep `API_KEY` out of source control; use environment variables or a secrets manager.
+```bash
+export API_KEY=your_key
+python ai_agent/agent.py --prompt "Hello" --provider generic --api-url https://api.yourprovider/v1/generate
+```
+
+Local mode does not need any external service or API key.
