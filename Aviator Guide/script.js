@@ -190,10 +190,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (contains(['license', 'licenses', 'ppl', 'cpl', 'atpl', 'pilot license', 'airline transport', 'type rating', 'medical requirement'])) {
                 return 'The Aviator Guide explains pilot licenses: PPL for recreational flying, CPL for commercial flying, and ATPL for airline command. It also covers license progression, medical requirements, and type ratings.';
             }
+            if (contains(['subject', 'subjects', 'required subjects', 'required subject', 'math', 'physics', 'science', 'english', 'biology'])) {
+                return 'To become a pilot, the Aviator Guide recommends strong foundation subjects such as mathematics, physics, English, and science. These subjects support flight training, navigation, aircraft systems, and communication skills.';
+            }
             if (contains(['resource', 'resources', 'advice', 'salary', 'timeline', 'lifestyle', 'pilot experiences', 'study materials', 'career advice', 'preparation', 'mental preparation'])) {
                 return 'The Resources and Advice page covers pilot experience guidance, study resources, salary expectations in the UAE, training timelines, and lifestyle preparation for aviation careers.';
             }
-            if (contains(['engineering college', 'aerospace engineering', 'university', 'college', 'aerospace college', 'aviation degree', 'mbzua', 'middlewares', 'abu dhabi polytechnic'])) {
+            if (contains(['engineering college', 'aerospace engineering', 'university', 'college', 'aerospace college', 'aviation degree', 'mbzua', 'abu dhabi polytechnic'])) {
                 return 'The website covers UAE institutions including Emirates Aviation University, Khalifa University Aerospace Engineering, American University of Sharjah, Mohamed Bin Zayed University of Artificial Intelligence, and Abu Dhabi Polytechnic.';
             }
             if (contains(['contact', 'get in touch', 'reach out', 'email', 'phone', 'office location', 'contact page'])) {
