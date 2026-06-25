@@ -78,12 +78,13 @@ document.addEventListener('DOMContentLoaded', function() {
             subject: subject,
             message: message,
             reply_to: fromEmail,
-            to_email: 'dia250380@diaestudents.com'
+            to_email: 'rishik.patil78@gmail.com'
         };
 
         const autoReplyParams = {
             from_name: fromName,
             from_email: fromEmail,
+            to_name: fromName,
             subject: subject,
             message: message,
             reply_to: fromEmail,
@@ -105,12 +106,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 contactForm.reset();
             })
             .catch(function(error) {
+<<<<<<< Updated upstream
                 console.error('EmailJS error:', error);
                 alert('Sorry, something went wrong while sending your message. Please try again later.');
             })
             .finally(function() {
                 submitButton.disabled = false;
                 submitButton.textContent = originalText;
+=======
+                const errMsg = error?.text || error?.statusText || JSON.stringify(error);
+                console.error('EmailJS error:', error, errMsg);
+                alert('Sorry, something went wrong while sending your message. Error: ' + errMsg);
+>>>>>>> Stashed changes
             });
     });
 });
