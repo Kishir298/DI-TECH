@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return 'The Aviator Guide explains pilot licenses: PPL for recreational flying, CPL for commercial flying, and ATPL for airline command. It also covers license progression, medical requirements, and type ratings.';
             }
             if (contains(['subject', 'subjects', 'required subjects', 'required subject', 'math', 'physics', 'science', 'english', 'biology'])) {
-                return 'To become a pilot, the Aviator Guide recommends strong foundation subjects such as mathematics, physics, English, and science. These subjects support flight training, navigation, aircraft systems, and communication skills.';
+                return 'To become a pilot, the Aviator Guide recommends a strong foundation in subjects such as mathematics, physics, English, and science. These subjects support flight training, navigation, aircraft systems, and communication skills.';
             }
             if (contains(['resource', 'resources', 'advice', 'salary', 'timeline', 'lifestyle', 'pilot experiences', 'study materials', 'career advice', 'preparation', 'mental preparation'])) {
                 return 'The Resources and Advice page covers pilot experience guidance, study resources, salary expectations in the UAE, training timelines, and lifestyle preparation for aviation careers.';
