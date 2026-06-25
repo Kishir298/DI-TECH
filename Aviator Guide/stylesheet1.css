@@ -512,10 +512,6 @@ h3 {
     background: #0f3b79;
 }
 
-    color: #e67e22;
-    font-weight: bold;
-}
-
 .grid-2-col {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
