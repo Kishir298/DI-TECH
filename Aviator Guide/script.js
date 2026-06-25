@@ -180,41 +180,38 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function getResponse(userText) {
-            const lower = userText.toLowerCase();
-            const topics = {
-                centers: ['training center', 'training centers', 'pilot training', 'flight school', 'center listed', 'academy', 'aviation university', 'pilot academy', 'training academy'],
-                licenses: ['license', 'licenses', 'ppl', 'cpl', 'atpl', 'pilot license', 'airline transport', 'flight training requirement'],
-                resources: ['resources', 'advice', 'salary', 'timeline', 'lifestyle', 'pilot experiences', 'study materials', 'career advice', 'preparation', 'mental preparation'],
-                colleges: ['engineering college', 'aerospace engineering', 'university', 'college', 'aerospace college', 'aviation degree'],
-                contact: ['contact', 'get in touch', 'reach out', 'email', 'phone', 'office location'],
-                website: ['website about', 'what is this website', 'what can i learn', 'guide website'],
-            };
+            const normalized = userText.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+            const tokens = normalized.split(' ');
+            const contains = keywords => keywords.some(keyword => normalized.includes(keyword));
 
-            if (topics.centers.some(keyword => lower.includes(keyword))) {
-                return 'The website lists UAE Aviation Academy (UAAA), Emirates Aviation University, CAE Oxford Aviation Academy - Dubai, Phoenix Aviation Academy, and Skyline University Aviation Academy as key pilot training centers. It also highlights aerospace colleges like Khalifa University and Abu Dhabi Polytechnic.';
+            if (contains(['training center', 'training centers', 'pilot training', 'flight school', 'pilot academy', 'aviation academy', 'pilot training center', 'training academy'])) {
+                return 'The website lists UAE Aviation Academy (UAAA), Emirates Aviation University, CAE Oxford Aviation Academy - Dubai, Phoenix Aviation Academy, and Skyline University Aviation Academy as key pilot training centers. It also mentions aerospace colleges like Khalifa University and Abu Dhabi Polytechnic.';
             }
-            if (topics.licenses.some(keyword => lower.includes(keyword))) {
-                return 'The Aviator Guide explains pilot licenses: PPL for personal flying, CPL for commercial flying, and ATPL for airline command. It also covers license progression, medical requirements, and type ratings.';
+            if (contains(['license', 'licenses', 'ppl', 'cpl', 'atpl', 'pilot license', 'airline transport', 'type rating', 'medical requirement'])) {
+                return 'The Aviator Guide explains pilot licenses: PPL for recreational flying, CPL for commercial flying, and ATPL for airline command. It also covers license progression, medical requirements, and type ratings.';
             }
-            if (topics.resources.some(keyword => lower.includes(keyword))) {
-                return 'The Resources and Advice page covers pilot experience advice, study resources, salary expectations in the UAE, training milestones, and lifestyle preparation for a pilot career.';
+            if (contains(['resource', 'resources', 'advice', 'salary', 'timeline', 'lifestyle', 'pilot experiences', 'study materials', 'career advice', 'preparation', 'mental preparation'])) {
+                return 'The Resources and Advice page covers pilot experience guidance, study resources, salary expectations in the UAE, training timelines, and lifestyle preparation for aviation careers.';
             }
-            if (topics.colleges.some(keyword => lower.includes(keyword))) {
-                return 'The website covers top UAE institutions, including Emirates Aviation University, Khalifa University Aerospace Engineering, American University of Sharjah, MBZUAI, and Abu Dhabi Polytechnic for engineering and pilot-related training.';
+            if (contains(['engineering college', 'aerospace engineering', 'university', 'college', 'aerospace college', 'aviation degree', 'mbzua', 'middlewares', 'abu dhabi polytechnic'])) {
+                return 'The website covers UAE institutions including Emirates Aviation University, Khalifa University Aerospace Engineering, American University of Sharjah, Mohamed Bin Zayed University of Artificial Intelligence, and Abu Dhabi Polytechnic.';
             }
-            if (topics.contact.some(keyword => lower.includes(keyword))) {
-                return 'The Contact page provides email, phone, and office location details for aspiring pilots seeking guidance on training programs, career advice, and next steps.';
+            if (contains(['contact', 'get in touch', 'reach out', 'email', 'phone', 'office location', 'contact page'])) {
+                return 'The Contact page provides email, phone, and office location details for aspiring pilots seeking help with training programs, career advice, and next steps.';
             }
-            if (topics.website.some(keyword => lower.includes(keyword))) {
-                return 'This Aviator Guide website helps aspiring pilots in the UAE by explaining academic subjects, pilot licenses, training centers, engineering colleges, and practical resources for career development.';
+            if (contains(['website about', 'what is this website', 'what can i learn', 'guide website', 'about this website'])) {
+                return 'This Aviator Guide website helps aspiring pilots in the UAE by describing subjects, licenses, training centers, engineering colleges, and resources needed to start a pilot career.';
             }
-            if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
-                return 'Hello! Ask me about the Aviator Guide website: training centers, licenses, engineering colleges, resources, or contact information.';
+            if (contains(['hello', 'hi', 'hey', 'greetings'])) {
+                return 'Hello! Ask me anything about the Aviator Guide website: training centers, licenses, engineering colleges, resources, or contact information.';
             }
-            if (lower.includes('thanks') || lower.includes('thank you')) {
-                return 'You’re welcome! Ask me another question about the Aviator Guide website or its career guidance content.';
+            if (contains(['thanks', 'thank you', 'thankyou'])) {
+                return 'You’re welcome! Ask me another question about the Aviator Guide website or its aviation career guidance content.';
             }
-            return 'I can answer questions about training centers, pilot licenses, engineering colleges, resources, or contact information on the Aviator Guide website. What would you like to know?';
+            if (tokens.length > 0) {
+                return 'I’m here to answer questions about the Aviator Guide website. Try asking about training centers, licenses, engineering colleges, resources, or contact details.';
+            }
+            return 'Please type a question about the Aviator Guide website content.';
         }
 
         function sendMessage() {
