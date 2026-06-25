@@ -181,19 +181,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function getResponse(userText) {
             const lower = userText.toLowerCase();
-            if (lower.includes('training center') || lower.includes('pilot training centers')) {
-                return 'The website lists UAE Aviation Academy (UAAA), Emirates Aviation University, CAE Oxford Aviation Academy - Dubai, Phoenix Aviation Academy, and Skyline University Aviation Academy as main training centers.';
+            const topics = {
+                centers: ['training center', 'training centers', 'pilot training', 'flight school', 'center listed', 'academy', 'aviation university', 'pilot academy', 'training academy'],
+                licenses: ['license', 'licenses', 'ppl', 'cpl', 'atpl', 'pilot license', 'airline transport', 'flight training requirement'],
+                resources: ['resources', 'advice', 'salary', 'timeline', 'lifestyle', 'pilot experiences', 'study materials', 'career advice', 'preparation', 'mental preparation'],
+                colleges: ['engineering college', 'aerospace engineering', 'university', 'college', 'aerospace college', 'aviation degree'],
+                contact: ['contact', 'get in touch', 'reach out', 'email', 'phone', 'office location'],
+                website: ['website about', 'what is this website', 'what can i learn', 'guide website'],
+            };
+
+            if (topics.centers.some(keyword => lower.includes(keyword))) {
+                return 'The website lists UAE Aviation Academy (UAAA), Emirates Aviation University, CAE Oxford Aviation Academy - Dubai, Phoenix Aviation Academy, and Skyline University Aviation Academy as key pilot training centers. It also highlights aerospace colleges like Khalifa University and Abu Dhabi Polytechnic.';
             }
-            if (lower.includes('license') || lower.includes('licenses')) {
-                return 'The site explains PPL, CPL, and ATPL licenses, including requirements and progression from private pilot to airline transport pilot.';
+            if (topics.licenses.some(keyword => lower.includes(keyword))) {
+                return 'The Aviator Guide explains pilot licenses: PPL for personal flying, CPL for commercial flying, and ATPL for airline command. It also covers license progression, medical requirements, and type ratings.';
             }
-            if (lower.includes('resources') || lower.includes('advice')) {
-                return 'The Resources and Advice page covers pilot experiences, study resources, salary overview, training timeline, and lifestyle tips for UAE aviation careers.';
+            if (topics.resources.some(keyword => lower.includes(keyword))) {
+                return 'The Resources and Advice page covers pilot experience advice, study resources, salary expectations in the UAE, training milestones, and lifestyle preparation for a pilot career.';
             }
-            if (lower.includes('contact')) {
-                return 'The Contact page encourages aspiring pilots to reach out for guidance on training programs, career advice, and next steps.';
+            if (topics.colleges.some(keyword => lower.includes(keyword))) {
+                return 'The website covers top UAE institutions, including Emirates Aviation University, Khalifa University Aerospace Engineering, American University of Sharjah, MBZUAI, and Abu Dhabi Polytechnic for engineering and pilot-related training.';
             }
-            return 'Ask me about the Aviator Guide website: training centers, licenses, engineering colleges, or resources and advice.';
+            if (topics.contact.some(keyword => lower.includes(keyword))) {
+                return 'The Contact page provides email, phone, and office location details for aspiring pilots seeking guidance on training programs, career advice, and next steps.';
+            }
+            if (topics.website.some(keyword => lower.includes(keyword))) {
+                return 'This Aviator Guide website helps aspiring pilots in the UAE by explaining academic subjects, pilot licenses, training centers, engineering colleges, and practical resources for career development.';
+            }
+            if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
+                return 'Hello! Ask me about the Aviator Guide website: training centers, licenses, engineering colleges, resources, or contact information.';
+            }
+            if (lower.includes('thanks') || lower.includes('thank you')) {
+                return 'You’re welcome! Ask me another question about the Aviator Guide website or its career guidance content.';
+            }
+            return 'I can answer questions about training centers, pilot licenses, engineering colleges, resources, or contact information on the Aviator Guide website. What would you like to know?';
         }
 
         function sendMessage() {
