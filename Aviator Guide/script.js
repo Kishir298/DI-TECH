@@ -206,7 +206,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (contains(['without physics', 'without chemistry', 'struggle mathematics'])) {
                     return 'Physics and mathematics are critical, but if you struggle, extra tutoring helps. Many pilots worked harder in these subjects. Chemistry is less important. Persistence and support matter most.';
                 }
-                return 'Focus on mathematics, physics, English, and science. Math and physics are essential for navigation and aerodynamics. English is critical for ICAO communication. Geography helps with navigation. Good grades matter—airlines review records. Extracurricular aviation activities strengthen applications.';
+                    // Precise FAQ responses (rewritten from Aspiring Pilot FAQ Part 1)
+                    const faq = {
+                        q1: 'Mathematics, Physics, English, Geography, and Chemistry are useful subjects because they develop skills needed for navigation, communication, and understanding aircraft systems.',
+                        q2: 'Yes. Mathematics helps pilots with navigation, fuel calculations, flight planning, and problem-solving.',
+                        q3: 'Physics explains how aircraft fly through concepts such as lift, thrust, drag, and gravity.',
+                        q4: 'Chemistry is not always required, but it helps pilots understand fuel, combustion, and aircraft materials.',
+                        q5: 'Yes. Geography helps pilots understand maps, weather patterns, time zones, and global routes.',
+                        q6: 'Airlines mainly focus on your licenses, training, and skills, but strong grades can help when applying for flight schools and universities.',
+                        q7: 'Requirements vary by academy, but most flight schools expect satisfactory grades in Mathematics, English, and Science.',
+                        q8: 'For IB, choose Mathematics, Physics, and English — these subjects are highly recommended for aviation careers.',
+                        q9: 'Yes, you can become a pilot without studying physics, but studying physics provides a strong advantage during flight training.',
+                        q10: 'In Year 13, focus on Mathematics, Physics, English, and any subjects required by your chosen university or flight academy.',
+                        q11: 'Yes. English is the international language of aviation and is used for communication with air traffic control.',
+                        q12: 'Advanced mathematics is not always required, but strong mathematical skills are beneficial.',
+                        q13: 'Airlines prefer applicants who have completed secondary education and professional flight training.',
+                        q14: 'Mathematics and Physics are often considered the most important subjects for aspiring pilots because they support many aviation concepts.',
+                        q15: 'In school, study relevant subjects, develop leadership skills, and learn more about the aviation industry.',
+                        q16: 'Yes. Activities demonstrating teamwork, leadership, and responsibility can strengthen pilot applications.',
+                        q17: 'Yes. Many successful pilots improve their mathematical skills through practice and training.',
+                        q18: 'Before flight school, study basic mathematics, physics, aviation terminology, and communication skills.',
+                        q19: 'Many universities prefer Mathematics and Physics, but requirements vary by institution.',
+                        q20: 'Develop communication, teamwork, problem-solving, leadership, and time management while in school.'
+                    };
+
+                    // Intent matching for specific FAQ items (prioritize explicit question forms)
+                    if (normalized.includes('what subjects should') || normalized.includes('what subjects should i take') || normalized.includes('what subjects') || normalized.includes('which subjects')) return faq.q1;
+                    if (normalized.includes('is mathematics important') || normalized.includes('is math important') || normalized.includes('math important')) return faq.q2;
+                    if (normalized.includes('why do pilots need physics') || normalized.includes('why pilots need physics') || normalized.includes('why physics')) return faq.q3;
+                    if (normalized.includes('do i need chemistry') || normalized.includes('need chemistry')) return faq.q4;
+                    if (normalized.includes('is geography useful') || normalized.includes('geography useful') || normalized.includes('why geography')) return faq.q5;
+                    if (normalized.includes('high school grades') || normalized.includes('do airlines care') || normalized.includes('airlines care about')) return faq.q6;
+                    if (normalized.includes('minimum grade') || normalized.includes('minimum grades') || normalized.includes('minimum grade required')) return faq.q7;
+                    if (normalized.includes('ib subject') || normalized.includes('which ib') || normalized.includes('which ib subjects')) return faq.q8;
+                    if (normalized.includes('without physics') || normalized.includes('no physics')) return faq.q9;
+                    if (normalized.includes('year 13') || normalized.includes('focus in year 13') || normalized.includes('what to focus in year 13')) return faq.q10;
+                    if (normalized.includes('is english important') || normalized.includes('english important') || normalized.includes('english for pilots')) return faq.q11;
+                    if (normalized.includes('advanced mathematics') || normalized.includes('advanced math') || normalized.includes('do i need advanced')) return faq.q12;
+                    if (normalized.includes('school qualifications') || normalized.includes('what school qualifications') || normalized.includes('school qualification')) return faq.q13;
+                    if (normalized.includes('most important subject') || normalized.includes('which subject is most important') || normalized.includes('most important')) return faq.q14;
+                    if (normalized.includes('what can i do in school') || normalized.includes('prepare in school') || normalized.includes('what to do in school')) return faq.q15;
+                    if (normalized.includes('extracurricular') || normalized.includes('activities important') || normalized.includes('extracurricular activities')) return faq.q16;
+                    if (normalized.includes('struggle with mathematics') || normalized.includes('struggle with math') || normalized.includes('bad at math')) return faq.q17;
+                    if (normalized.includes('what should i study before') || normalized.includes('study before flight school') || normalized.includes('before joining flight school')) return faq.q18;
+                    if (normalized.includes('universities require') || normalized.includes('do universities require') || normalized.includes('university require subjects')) return faq.q19;
+                    if (normalized.includes('skills should i develop') || normalized.includes('what skills') || normalized.includes('skills while in school')) return faq.q20;
+
+                    // Default subject group answer
+                    return faq.q1;
             }
             if (contains(['become a pilot', 'to become a pilot', 'what to do to become', 'how to become', 'steps to become', 'becoming a pilot', 'what should i do', 'what do i need to do'])) {
                 return 'To become a pilot, start with the right academics: focus on mathematics, physics, English, and science. Then choose a training path such as an integrated ATPL program or modular CPL training, complete your PPL, CPL, and ATPL exams, obtain a Class 1 medical certificate, build flight hours, and secure a type rating for the aircraft you plan to fly.';
