@@ -171,10 +171,30 @@ document.addEventListener('DOMContentLoaded', function() {
         const input = widget.querySelector('.chatbot-input');
         const body = widget.querySelector('.chatbot-body');
 
-        function appendMessage(text, sender) {
+        let lastUserQuestion = '';
+        function appendMessage(text, sender, options = {}) {
             const message = document.createElement('div');
             message.className = 'chatbot-message ' + sender;
-            message.textContent = text;
+
+            const textNode = document.createElement('span');
+            textNode.textContent = text;
+            message.appendChild(textNode);
+
+            if (sender === 'bot' && options.showSave) {
+                const saveBtn = document.createElement('button');
+                saveBtn.className = 'chatbot-save';
+                saveBtn.type = 'button';
+                saveBtn.textContent = 'Save';
+                saveBtn.title = 'Save this answer to the site FAQ';
+                saveBtn.addEventListener('click', function() {
+                    if (!lastUserQuestion) return;
+                    saveKnowledge(lastUserQuestion, text);
+                    saveBtn.textContent = 'Saved';
+                    saveBtn.disabled = true;
+                });
+                message.appendChild(saveBtn);
+            }
+
             body.appendChild(message);
             body.scrollTop = body.scrollHeight;
         }
@@ -183,7 +203,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const normalized = userText.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
             const tokens = normalized.split(' ').filter(Boolean);
 
-            const faq = [
+            // Base FAQ dataset (hard-coded)
+            let faq = [
                 {
                     question: 'What subjects should I take if I want to become a pilot?',
                     answer: 'Mathematics, Physics, English, Geography, and Chemistry are useful subjects because they develop skills needed for navigation, communication, and understanding aircraft systems.',
@@ -387,13 +408,62 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             ];
 
-            const getMatchScore = (item) => {
-                return item.keywords.reduce((score, keyword) => {
-                    return score + (normalized.includes(keyword) ? 1 : 0);
-                }, 0);
+            // Load any user-saved FAQ entries from localStorage (learned Q&A)
+            let learned = [];
+            try {
+                learned = JSON.parse(localStorage.getItem('aviator_learned') || '[]');
+                if (!Array.isArray(learned)) learned = [];
+            } catch (e) {
+                learned = [];
+            }
+
+            const combinedFaq = faq.concat(learned);
+
+            // Levenshtein distance for fuzzy similarity
+            const levenshtein = (a, b) => {
+                if (a === b) return 0;
+                const al = a.length, bl = b.length;
+                if (al === 0) return bl;
+                if (bl === 0) return al;
+                const matrix = Array.from({ length: al + 1 }, () => new Array(bl + 1));
+                for (let i = 0; i <= al; i++) matrix[i][0] = i;
+                for (let j = 0; j <= bl; j++) matrix[0][j] = j;
+                for (let i = 1; i <= al; i++) {
+                    for (let j = 1; j <= bl; j++) {
+                        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j] + 1,
+                            matrix[i][j - 1] + 1,
+                            matrix[i - 1][j - 1] + cost
+                        );
+                    }
+                }
+                return matrix[al][bl];
             };
 
-            const bestMatch = faq.reduce((best, item) => {
+            const getMatchScore = (item) => {
+                let score = 0;
+                const q = (item.question || '').toLowerCase();
+                // keyword matches
+                if (Array.isArray(item.keywords)) {
+                    item.keywords.forEach(k => {
+                        if (normalized.includes(k)) score += 2;
+                    });
+                }
+                // token overlap with question text
+                tokens.forEach(t => { if (q.includes(t)) score += 1; });
+                // fuzzy similarity between user query and stored question
+                const qnorm = q.replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+                if (qnorm.length > 0) {
+                    const dist = levenshtein(normalized, qnorm);
+                    const maxLen = Math.max(normalized.length, qnorm.length);
+                    const similarity = maxLen > 0 ? (1 - dist / maxLen) : 0;
+                    score += Math.round(similarity * 3);
+                }
+                return score;
+            };
+
+            const bestMatch = combinedFaq.reduce((best, item) => {
                 const score = getMatchScore(item);
                 if (score > best.score) {
                     return { item, score };
@@ -470,13 +540,35 @@ document.addEventListener('DOMContentLoaded', function() {
             return 'Please type a question about the Aviator Guide website content.';
         }
 
+        function saveKnowledge(question, answer) {
+            try {
+                const key = 'aviator_learned';
+                const stored = JSON.parse(localStorage.getItem(key) || '[]');
+                const list = Array.isArray(stored) ? stored : [];
+                const q = (question || '').trim();
+                const a = (answer || '').trim();
+                if (!q || !a) return;
+                // avoid exact duplicates
+                if (!list.some(item => item.question === q && item.answer === a)) {
+                    list.push({ question: q, answer: a, keywords: q.toLowerCase().split(/\s+/).slice(0,8) });
+                    localStorage.setItem(key, JSON.stringify(list));
+                    appendMessage('Saved this helpful answer to local memory.', 'bot');
+                } else {
+                    appendMessage('This answer is already saved.', 'bot');
+                }
+            } catch (e) {
+                console.warn('Failed to save knowledge', e);
+            }
+        }
+
         function sendMessage() {
             const text = input.value.trim();
             if (!text) return;
+            lastUserQuestion = text;
             appendMessage(text, 'user');
             input.value = '';
             setTimeout(function() {
-                appendMessage(getResponse(text), 'bot');
+                appendMessage(getResponse(text), 'bot', { showSave: true });
             }, 300);
         }
 
