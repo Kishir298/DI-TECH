@@ -1,4 +1,4 @@
 # Local mode requires no extra Python packages.
 # Optional dependencies for remote providers:
-# openai>=1.0
-# requests>=2.28
+openai>=1.0
+requests>=2.28
