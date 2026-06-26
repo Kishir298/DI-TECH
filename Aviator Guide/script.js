@@ -284,6 +284,107 @@ document.addEventListener('DOMContentLoaded', function() {
                     answer: 'Develop communication, teamwork, problem-solving, leadership, and time management while in school.',
                     keywords: ['skills', 'school', 'develop', 'communication', 'teamwork', 'problem solving', 'leadership', 'time management']
                 }
+                ,
+                {
+                    question: 'Do I need a degree to become a pilot?',
+                    answer: 'No. A degree is not always required, but it can improve career opportunities and provide a backup career option.',
+                    keywords: ['degree', 'need a degree', 'require a degree', 'university', 'college']
+                },
+                {
+                    question: 'Which degree is best for aspiring pilots?',
+                    answer: 'Aeronautical Engineering, Aerospace Engineering, Aviation Management, and Aviation Science are popular choices.',
+                    keywords: ['which degree', 'best degree', 'aeronautical', 'aerospace', 'aviation management', 'aviation science']
+                },
+                {
+                    question: 'Is aeronautical engineering a good degree?',
+                    answer: 'Yes. It provides knowledge of aircraft systems and offers an alternative career path if you become medically unfit to fly.',
+                    keywords: ['aeronautical engineering', 'is aeronautical', 'good degree']
+                },
+                {
+                    question: 'Should I study aviation or engineering?',
+                    answer: 'Both are valuable. Aviation focuses on pilot training, while engineering provides technical knowledge and broader career options.',
+                    keywords: ['study aviation or engineering', 'aviation or engineering', 'which to study']
+                },
+                {
+                    question: 'What are the benefits of an aviation degree?',
+                    answer: 'It develops aviation knowledge, industry awareness, and can improve employment opportunities.',
+                    keywords: ['benefits of aviation degree', 'aviation degree benefits', 'advantages']
+                },
+                {
+                    question: 'Which universities in the UAE offer aviation-related degrees?',
+                    answer: 'Several institutions offer aviation-related programs, including universities that specialize in aerospace and aviation studies.',
+                    keywords: ['universities in the uae', 'uae universities', 'aviation-related degrees', 'which universities']
+                },
+                {
+                    question: 'Can I become a pilot without going to university?',
+                    answer: 'Yes. Many pilots enter flight schools directly after secondary education.',
+                    keywords: ['without university', 'no university', 'become a pilot without university']
+                },
+                {
+                    question: 'What engineering degrees help pilots?',
+                    answer: 'Aeronautical Engineering, Aerospace Engineering, Mechanical Engineering, and Electrical Engineering are useful options.',
+                    keywords: ['engineering degrees', 'mechanical engineering', 'electrical engineering', 'aerospace engineering']
+                },
+                {
+                    question: 'Is aerospace engineering useful for pilots?',
+                    answer: 'Yes. It provides knowledge about aircraft design, systems, and aerodynamics.',
+                    keywords: ['aerospace engineering', 'useful for pilots']
+                },
+                {
+                    question: 'What degree should I choose as a backup career?',
+                    answer: 'Aeronautical Engineering is often recommended because it remains closely connected to aviation.',
+                    keywords: ['backup degree', 'backup career', 'aeronautical engineering']
+                },
+                {
+                    question: 'Can I work in aviation if I stop flying?',
+                    answer: 'Yes. Pilots can move into management, training, engineering, safety, or aviation operations roles.',
+                    keywords: ['work in aviation', 'stop flying', 'career after flying']
+                },
+                {
+                    question: 'What careers can an aeronautical engineer pursue?',
+                    answer: 'They can work in aircraft design, maintenance, manufacturing, research, and aviation management.',
+                    keywords: ['aeronautical engineer careers', 'careers in aeronautical']
+                },
+                {
+                    question: 'Is an aviation management degree useful?',
+                    answer: 'Yes. It prepares students for leadership and operational roles within the aviation industry.',
+                    keywords: ['aviation management', 'aviation management degree', 'useful']
+                },
+                {
+                    question: 'Which degree gives the best career flexibility?',
+                    answer: 'Engineering degrees generally provide the greatest flexibility because they can be used inside and outside aviation.',
+                    keywords: ['best career flexibility', 'flexible degree', 'engineering flexibility']
+                },
+                {
+                    question: 'What university requirements are needed for aviation courses?',
+                    answer: 'Requirements vary, but Mathematics, Physics, and English are commonly required.',
+                    keywords: ['university requirements', 'requirements for aviation', 'entry requirements']
+                },
+                {
+                    question: 'What licenses do I need to become a pilot?',
+                    answer: 'Most pilots progress through the Class 1 Medical Certificate, SPL, PPL, IR, CPL, Multi-Engine Rating, Type Rating, and ATPL.',
+                    keywords: ['licenses', 'what licenses', 'spl', 'ppl', 'cpl', 'atpl', 'class 1 medical']
+                },
+                {
+                    question: 'What is a Class 1 Medical Certificate?',
+                    answer: 'It confirms that you meet the medical standards required for commercial aviation.',
+                    keywords: ['class 1 medical', 'medical certificate', 'what is class 1']
+                },
+                {
+                    question: 'What is a Student Pilot License?',
+                    answer: 'It allows you to begin official flight training and perform supervised solo flights.',
+                    keywords: ['student pilot license', 'spl', 'what is spl']
+                },
+                {
+                    question: 'What is a Private Pilot License?',
+                    answer: 'It allows you to fly aircraft privately but not for payment.',
+                    keywords: ['private pilot license', 'ppl', 'what is ppl']
+                },
+                {
+                    question: 'What is an Instrument Rating?',
+                    answer: 'It allows pilots to fly using aircraft instruments in poor weather or low-visibility conditions.',
+                    keywords: ['instrument rating', 'ir', 'what is ir']
+                }
             ];
 
             const getMatchScore = (item) => {
