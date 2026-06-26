@@ -106,18 +106,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 contactForm.reset();
             })
             .catch(function(error) {
-<<<<<<< Updated upstream
-                console.error('EmailJS error:', error);
-                alert('Sorry, something went wrong while sending your message. Please try again later.');
+                const errMsg = error?.text || error?.statusText || JSON.stringify(error);
+                console.error('EmailJS error:', error, errMsg);
+                alert('Sorry, something went wrong while sending your message. Error: ' + errMsg);
             })
             .finally(function() {
                 submitButton.disabled = false;
                 submitButton.textContent = originalText;
-=======
-                const errMsg = error?.text || error?.statusText || JSON.stringify(error);
-                console.error('EmailJS error:', error, errMsg);
-                alert('Sorry, something went wrong while sending your message. Error: ' + errMsg);
->>>>>>> Stashed changes
             });
     });
 });
