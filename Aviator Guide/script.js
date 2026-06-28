@@ -650,6 +650,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const ILLEGAL_KEYWORDS = ['hijack', 'bomb', 'crash', 'destroy', 'attack', 'security', 'bypass', 'illegal', 'steal', 'weapon'];
 
     const OUT_OF_SCOPE_KEYWORDS = ['poem', 'minecraft', 'cook', 'recipe', 'garden', 'clean', 'repair', 'fix', 'build house'];
+
+    const SWEAR_WORDS = ['shit', 'fuck', 'damn', 'idiot', 'stupid', 'useless', 'crap', 'hell', 'bastard', 'ass', 'fucking'];
+
+    const OFFENSIVE_ONLY_PATTERNS = [
+        { words: ['shit', 'fuck', 'idiot', 'useless', 'crap'], response: 'I\'m here to provide guidance about becoming a pilot and aviation careers. If you have an aviation-related question, I\'d be happy to help.' },
+        { words: ['damn', 'hell', 'bastard', 'ass'], response: 'I understand you may be frustrated. If you have a question about pilot training or aviation, I\'ll do my best to help.' }
+    ];
     
     // Initialize TF-IDF vectorizer
     const vectorizer = new TfidfVectorizer();
@@ -681,6 +688,32 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+// Check for offensive language
+        const hasOffensiveLanguage = SWEAR_WORDS.some(word => normalized.includes(word));
+
+        // Check for offense mixed with positive feedback (damn, hell used as intensifiers)
+        const positiveFeedbackWords = ['good', 'great', 'helpful', 'awesome', 'excellent', 'useful', 'nice', 'amazing'];
+        const hasPositiveFeedback = positiveFeedbackWords.some(w => normalized.includes(w));
+        
+        if (hasOffensiveLanguage && hasPositiveFeedback) {
+            return 'Thank you! I\'m glad you found it helpful. If you have any questions about becoming a pilot or aviation careers, feel free to ask.';
+        }
+        
+        // Remove offensive words for processing
+        let cleanText = normalized;
+        SWEAR_WORDS.forEach(word => {
+            cleanText = cleanText.replace(new RegExp('\\b' + word + '\\b', 'g'), '');
+        });
+        cleanText = cleanText.replace(/\s+/g, ' ').trim();
+        
+        // If only offensive language remains (no aviation content after cleanup)
+        if (hasOffensiveLanguage && (!cleanText || cleanText.length < 3)) {
+            return 'I\'m here to provide guidance about becoming a pilot and aviation careers. If you have an aviation-related question, I\'d be happy to help.';
+        }
+
+        // For mixed offensive + aviation content: acknowledge but proceed to answer
+        const offensiveWithAviationResponse = hasOffensiveLanguage ? 'I understand you may be frustrated. ' : '';
+        
         // Check for entertainment requests
         for (const ent of ENTERTAINMENT_REQUESTS) {
             if (ent.patterns.some(p => normalized.includes(p))) {
@@ -707,29 +740,29 @@ document.addEventListener('DOMContentLoaded', function() {
             'i am', 'i\'m', 'i like', 'i love', 'my favorite', 'my hobby', 'from india', 'from pakistan', 'from uk', 'from usa',
             'gay', 'straight', 'football', 'cricket', 'music', 'movie', 'actor', 'actress'
         ];
-        if (personalStatementPatterns.some(p => normalized.includes(p)) && tokens.length < 12) {
+        if (personalStatementPatterns.some(p => cleanText.includes(p)) && tokens.length < 12) {
             return 'My purpose is to provide guidance about becoming a pilot and aviation careers. Feel free to ask me any aviation-related questions.';
         }
 
         // Check for greetings
         const greetingPatterns = ['hello', 'hi', 'hey', 'greetings', 'good morning', 'good evening', 'howdy'];
-        if (greetingPatterns.some(p => normalized.includes(p))) {
+        if (greetingPatterns.some(p => cleanText.includes(p))) {
             return 'Hello! Welcome to the Pilot Career Guide chatbot. I can help you with pilot licenses, flight schools, aviation degrees, airline careers, salaries, and becoming a pilot.';
         }
 
         // Check for thanks
         const thanksPatterns = ['thanks', 'thank you', 'thankyou', 'appreciate', 'gratitude'];
-        if (thanksPatterns.some(p => normalized.includes(p))) {
+        if (thanksPatterns.some(p => cleanText.includes(p))) {
             return 'You\'re welcome! I\'m glad I could help. Feel free to ask if you have any more aviation questions.';
         }
 
         // Check for goodbye
         const goodbyePatterns = ['bye', 'goodbye', 'see you', 'see ya', 'farewell'];
-        if (goodbyePatterns.some(p => normalized.includes(p))) {
+        if (goodbyePatterns.some(p => cleanText.includes(p))) {
             return 'Goodbye! Best of luck on your journey to becoming a pilot. Safe skies!';
         }
         
-        if (!normalized || tokens.length === 0) {
+        if (!cleanText || tokens.length === 0) {
             return 'Please type a question about the Aviator Guide website content. I can help with subjects, licenses, training centers, colleges, salaries, or career advice.';
         }
 
@@ -747,8 +780,11 @@ document.addEventListener('DOMContentLoaded', function() {
         let bestAnswer = null;
         let bestFaqItem = null;
 
+        // Use cleanText if offensive language was stripped, otherwise use original
+        const searchVectorText = cleanText || normalized;
+
         // Search through main FAQ
-        const userVec = vectorizer.transform(normalized);
+        const userVec = vectorizer.transform(searchVectorText);
         for (let i = 0; i < faqVectors.length; i++) {
             const score = vectorizer.cosineSimilarity(userVec, faqVectors[i]);
             if (score > bestScore) {
@@ -778,12 +814,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (bestScore >= 0.3) {
             addToHistory('user', userText);
             addToHistory('bot', bestAnswer);
-            return bestAnswer;
+            return offensiveWithAviationResponse + bestAnswer;
         }
 
         // 2. Handle conversational follow-ups (context from history)
         const lookForAlternatives = ['what about', 'what else', 'and', 'tell me more', 'more details', 'also', 'other', 'another', 'any other', 'explain more', 'elaborate'];
-        const isFollowUp = lookForAlternatives.some(phrase => normalized.includes(phrase) || normalized === phrase);
+        const isFollowUp = lookForAlternatives.some(phrase => cleanText.includes(phrase) || cleanText === phrase);
 
         if (isFollowUp && lastTopic) {
             // Search history for what was discussed
@@ -794,7 +830,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (score > 0.15 && FAQ[i].answer !== lastTopic) {
                     addToHistory('user', userText);
                     addToHistory('bot', FAQ[i].answer);
-                    return FAQ[i].answer;
+                    return offensiveWithAviationResponse + FAQ[i].answer;
                 }
             }
         }
@@ -869,15 +905,15 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
 
         for (const intent of intentRules) {
-            if (intent.patterns.some(p => normalized.includes(p))) {
+            if (intent.patterns.some(p => cleanText.includes(p))) {
                 addToHistory('user', userText);
                 addToHistory('bot', intent.response);
-                return intent.response;
+                return offensiveWithAviationResponse + intent.response;
             }
         }
 
         // 4. Handle "where is" type questions
-        if (normalized.includes('where is') || normalized.includes('where can')) {
+        if (cleanText.includes('where is') || cleanText.includes('where can')) {
             const locationPatterns = [
                 { keywords: ['uaaa', 'sharjah airport', 'uae aviation'], response: 'UAE Aviation Academy (UAAA) is located at Sharjah International Airport, UAE.' },
                 { keywords: ['emirates aviation', 'dubai academic'], response: 'Emirates Aviation University is located in Dubai Academic City, UAE.' },
@@ -886,10 +922,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 { keywords: ['khalifa', 'abu dhabi'], response: 'Khalifa University is located in Abu Dhabi, UAE.' }
             ];
             for (const lp of locationPatterns) {
-                if (lp.keywords.some(k => normalized.includes(k))) {
+                if (lp.keywords.some(k => cleanText.includes(k))) {
                     addToHistory('user', userText);
                     addToHistory('bot', lp.response);
-                    return lp.response + ' Let me know if you need more details!';
+                    return offensiveWithAviationResponse + lp.response + ' Let me know if you need more details!';
                 }
             }
         }
@@ -924,17 +960,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let suggestion = '';
         for (const topic of topicMap) {
-            if (topic.keywords.some(k => normalized.includes(k))) {
+            if (topic.keywords.some(k => cleanText.includes(k))) {
                 suggestion = topic.hint;
                 break;
             }
         }
 
         if (suggestion) {
-            return `I don't have a specific answer about that yet, but it sounds like you're asking about ${suggestion}. Could you rephrase your question? For example, try asking "What subjects do I need to become a pilot?" or "How much do pilots earn in the UAE?"`;
+            return offensiveWithAviationResponse + `I don't have a specific answer about that yet, but it sounds like you're asking about ${suggestion}. Could you rephrase your question? For example, try asking "What subjects do I need to become a pilot?" or "How much do pilots earn in the UAE?"`;
         }
         
-        return 'I\'m not sure I understood your question. I can help with: subjects and grades, pilot licenses (PPL, CPL, ATPL), training centers and costs, aerospace colleges, airline careers (Emirates, Etihad), salaries, or advice from real pilots. Try asking a specific question like "What subjects do I need to become a pilot?"';
+        return offensiveWithAviationResponse + 'I\'m not sure I understood your question. I can help with: subjects and grades, pilot licenses (PPL, CPL, ATPL), training centers and costs, aerospace colleges, airline careers (Emirates, Etihad), salaries, or advice from real pilots. Try asking a specific question like "What subjects do I need to become a pilot?"';
     }
 
     function createChatbotWidget() {
