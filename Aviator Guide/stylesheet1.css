@@ -237,7 +237,7 @@ h3 {
 }
 
 .featured-image {
-    display: inline-block;
+    display: block;
     margin: 40px auto;
     transition: transform 0.3s ease;
     border: 3px solid rgba(230, 126, 34, 0.3);
@@ -533,8 +533,8 @@ h3 {
 
 /* Image Placeholders */
 .img-placeholder {
-    display: inline-block;
-    margin: 20px 0;
+    display: block;
+    margin: 20px auto;
     transition: transform 0.3s ease;
     border: 3px solid rgba(230, 126, 34, 0.3);
     border-radius: 8px;
