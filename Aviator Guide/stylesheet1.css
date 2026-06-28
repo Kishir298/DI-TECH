@@ -240,9 +240,6 @@ h3 {
     display: block;
     margin: 40px auto;
     transition: transform 0.3s ease;
-    border: 3px solid rgba(230, 126, 34, 0.3);
-    border-radius: 8px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     box-sizing: border-box;
 }
 
@@ -252,7 +249,10 @@ h3 {
 
 .featured-image img {
     display: block;
-    border-radius: 5px;
+    margin: 0 auto;
+    border: 3px solid rgba(230, 126, 34, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     background: #f8f9fa;
 }
 
@@ -536,9 +536,6 @@ h3 {
     display: block;
     margin: 20px auto;
     transition: transform 0.3s ease;
-    border: 3px solid rgba(230, 126, 34, 0.3);
-    border-radius: 8px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     box-sizing: border-box;
 }
 
@@ -548,7 +545,10 @@ h3 {
 
 .img-placeholder img {
     display: block;
-    border-radius: 5px;
+    margin: 0 auto;
+    border: 3px solid rgba(230, 126, 34, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     background: #f8f9fa;
 }
 
