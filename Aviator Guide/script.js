@@ -633,7 +633,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
-    // ====== CHATBOT ENGINE ======
+    // ====== CHATBOT RESPONSE RULES ======
+
+    const GENERAL_KNOWLEDGE_CATEGORIES = [
+        'govern', 'politics', 'sports', 'celebrity', 'entertain', 'movie', 'film', 'music', 'song', 'artist',
+        'history', 'war', 'president', 'prime minister', 'country', 'nation', 'border', 'flag', 'capital',
+        'religion', 'god', 'atheist', 'christian', 'muslim', 'hindu', 'buddhist', 'jewish', 'islam'
+    ];
+
+    const ENTERTAINMENT_REQUESTS = [
+        { patterns: ['joke', 'funny', 'humor', 'laugh'], response: 'I\'m designed to provide pilot career guidance. Feel free to ask me anything about becoming a pilot or the aviation industry.' },
+        { patterns: ['story', 'tale', 'scary', 'adventure'], response: 'My purpose is to help users learn about aviation. I\'d be happy to answer any aviation-related questions instead.' },
+        { patterns: ['game', 'play', 'puzzle', 'quiz'], response: 'I\'m designed to provide aviation information. I can\'t play games, but I can answer questions about pilot training and careers.' }
+    ];
+
+    const ILLEGAL_KEYWORDS = ['hijack', 'bomb', 'crash', 'destroy', 'attack', 'security', 'bypass', 'illegal', 'steal', 'weapon'];
+
+    const OUT_OF_SCOPE_KEYWORDS = ['poem', 'minecraft', 'cook', 'recipe', 'garden', 'clean', 'repair', 'fix', 'build house'];
     
     // Initialize TF-IDF vectorizer
     const vectorizer = new TfidfVectorizer();
@@ -657,6 +673,61 @@ document.addEventListener('DOMContentLoaded', function() {
     function getResponse(userText) {
         const normalized = userText.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
         const tokens = normalized.split(' ').filter(Boolean);
+        
+        // Check for illegal/dangerous requests first (highest priority)
+        for (const keyword of ILLEGAL_KEYWORDS) {
+            if (normalized.includes(keyword)) {
+                return 'I can\'t help with harmful or illegal activities. If you\'d like to learn about aviation safety or pilot training, I\'d be happy to help.';
+            }
+        }
+
+        // Check for entertainment requests
+        for (const ent of ENTERTAINMENT_REQUESTS) {
+            if (ent.patterns.some(p => normalized.includes(p))) {
+                return ent.response;
+            }
+        }
+
+        // Check for out-of-scope requests
+        for (const keyword of OUT_OF_SCOPE_KEYWORDS) {
+            if (normalized.includes(keyword)) {
+                return 'I\'m designed specifically to provide guidance about becoming a pilot and aviation careers. Please ask me an aviation-related question.';
+            }
+        }
+
+        // Check for general knowledge questions
+        for (const cat of GENERAL_KNOWLEDGE_CATEGORIES) {
+            if (normalized.includes(cat)) {
+                return 'I\'m designed specifically to provide information about becoming a pilot and aviation careers. Please ask me a question related to aviation.';
+            }
+        }
+
+        // Check for personal statements (non-aviation related)
+        const personalStatementPatterns = [
+            'i am', 'i\'m', 'i like', 'i love', 'my favorite', 'my hobby', 'from india', 'from pakistan', 'from uk', 'from usa',
+            'gay', 'straight', 'football', 'cricket', 'music', 'movie', 'actor', 'actress'
+        ];
+        if (personalStatementPatterns.some(p => normalized.includes(p)) && tokens.length < 12) {
+            return 'My purpose is to provide guidance about becoming a pilot and aviation careers. Feel free to ask me any aviation-related questions.';
+        }
+
+        // Check for greetings
+        const greetingPatterns = ['hello', 'hi', 'hey', 'greetings', 'good morning', 'good evening', 'howdy'];
+        if (greetingPatterns.some(p => normalized.includes(p))) {
+            return 'Hello! Welcome to the Pilot Career Guide chatbot. I can help you with pilot licenses, flight schools, aviation degrees, airline careers, salaries, and becoming a pilot.';
+        }
+
+        // Check for thanks
+        const thanksPatterns = ['thanks', 'thank you', 'thankyou', 'appreciate', 'gratitude'];
+        if (thanksPatterns.some(p => normalized.includes(p))) {
+            return 'You\'re welcome! I\'m glad I could help. Feel free to ask if you have any more aviation questions.';
+        }
+
+        // Check for goodbye
+        const goodbyePatterns = ['bye', 'goodbye', 'see you', 'see ya', 'farewell'];
+        if (goodbyePatterns.some(p => normalized.includes(p))) {
+            return 'Goodbye! Best of luck on your journey to becoming a pilot. Safe skies!';
+        }
         
         if (!normalized || tokens.length === 0) {
             return 'Please type a question about the Aviator Guide website content. I can help with subjects, licenses, training centers, colleges, salaries, or career advice.';
@@ -733,17 +804,17 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 name: 'greeting',
                 patterns: ['hello', 'hi ', 'hey', 'greetings', 'good morning', 'good evening', 'howdy'],
-                response: 'Hello! I\'m the Aviator Guide assistant. Ask me about pilot subjects, licenses, training centers, colleges, salaries, career advice, or anything else about becoming a pilot in the UAE!'
+                response: 'Hello! Welcome to the Pilot Career Guide chatbot. I can help you with pilot licenses, flight schools, aviation degrees, airline careers, salaries, and becoming a pilot.'
             },
             {
                 name: 'thanks',
                 patterns: ['thanks', 'thank you', 'thankyou', 'appreciate', 'gratitude'],
-                response: 'You\'re welcome! Feel free to ask another question about pilot training, academic requirements, or UAE aviation career guidance.'
+                response: 'You\'re welcome! I\'m glad I could help. Feel free to ask if you have any more aviation questions.'
             },
             {
                 name: 'about_site',
-                patterns: ['what is this website', 'about this site', 'website purpose', 'what can i learn', 'guide website about', 'tell me about this site'],
-                response: 'This Aviator Guide website helps aspiring pilots in the UAE by explaining the subjects, licenses, training centers, colleges, and practical advice needed to start and grow a pilot career.'
+                patterns: ['what is this website', 'about this site', 'website purpose', 'what can i learn', 'guide website about', 'tell me about this site', 'what can you help me with', 'i don\'t know where to start'],
+                response: 'I can help you with pilot licenses, flight schools in the UAE, aviation degrees, pilot salaries, airline careers, medical requirements, and the steps to becoming a pilot.'
             },
             {
                 name: 'subjects_general',
@@ -777,8 +848,8 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             {
                 name: 'cost_general',
-                patterns: ['cost', 'fee', 'price', 'expensive', 'how much does it cost', 'afford', 'tuition', 'funding'],
-                response: 'Estimated training costs: PPL AED 35,000-50,000, CPL AED 180,000-250,000, Integrated ATPL AED 400,000-650,000, Type Rating AED 80,000-150,000. Cadet sponsorship from Emirates/Etihad can cover costs. Check academies for payment plans.'
+                patterns: ['cost', 'fee', 'price', 'expensive', 'how much does it cost', 'tuition'],
+                response: 'Estimated training costs: PPL AED 35,000-50,000, CPL AED 180,000-250,000, Integrated ATPL AED 400,000-650,000, Type Rating AED 80,000-150,000. I can\'t provide financial assistance, but I can suggest scholarships, sponsorships, and funding opportunities that may help.'
             },
             {
                 name: 'licenses_general',
@@ -873,11 +944,11 @@ document.addEventListener('DOMContentLoaded', function() {
             <button class="chatbot-button" aria-label="Open chat">💬</button>
             <div class="chatbot-modal" role="dialog" aria-modal="true" aria-label="Chatbot window">
                 <div class="chatbot-header">
-                    <h4>Site Chat</h4>
+                    <h4>Pilot Career Guide</h4>
                     <button class="chatbot-close" aria-label="Close chat">×</button>
                 </div>
                 <div class="chatbot-body">
-                    <div class="chatbot-message bot">Hello! Ask me about this Aviator Guide website and its content.</div>
+                    <div class="chatbot-message bot">Hello! Welcome to the Pilot Career Guide chatbot. I can help you with pilot licenses, flight schools, aviation degrees, airline careers, salaries, and becoming a pilot.</div>
                 </div>
                 <div class="chatbot-input-row">
                     <input class="chatbot-input" type="text" placeholder="Ask a question..." aria-label="Type your question here">
